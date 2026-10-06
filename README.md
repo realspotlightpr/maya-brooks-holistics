@@ -16,7 +16,7 @@ After payment is complete, configure the provider to deliver:
 
 ## Publish
 
-The folder can be deployed as-is to Netlify, Cloudflare Pages, GitHub Pages, or any static web host. Keep `index.html`, `styles.css`, `script.js`, and the `assets` directory together.
+The folder can be deployed as-is to Netlify, Cloudflare Pages, GitHub Pages, or any static web host. Keep `index.html`, `desktop.html`, `design.css`, `script.js`, and the `assets` directory together. `DESIGN.md` documents the visual system.
 
 ## Transparency
 
