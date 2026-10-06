@@ -10,3 +10,21 @@ if (CHECKOUT_URL) {
     link.rel = 'noopener';
   });
 }
+
+const revealItems = document.querySelectorAll('.reveal');
+if (revealItems.length) {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealItems.forEach(item => item.classList.add('in-view'));
+  } else {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+    revealItems.forEach(item => observer.observe(item));
+  }
+}
