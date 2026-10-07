@@ -1,0 +1,16 @@
+footer img {
+  display: block;
+  width: 190px;
+  height: auto;
+  max-height: 72px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+@media (max-width: 900px) {
+  footer img {
+    width: 165px;
+    height: auto;
+    max-height: 64px;
+  }
+}
