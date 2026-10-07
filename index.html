@@ -25,7 +25,8 @@
         location.replace("desktop.html");
     </script>
     <link rel="stylesheet" href="design.css?v=4" />
-    <link rel="stylesheet" href="fixes.css?v=3" />
+    <link rel="stylesheet" href="fixes.css?v=4" />
+    <script src="https://js.stripe.com/v3/"></script>
   </head>
   <body class="mobile-page">
     <div class="progress" aria-hidden="true"></div>
@@ -217,6 +218,23 @@
       <span><b>Simple 28-day plan</b><small>$19 · yours for life</small></span
       ><a class="checkout-link" href="#offer">Get my plan →</a>
     </div>
-    <script src="script.js?v=6"></script>
+    <dialog class="checkout-dialog" id="checkout-dialog" aria-labelledby="checkout-title">
+      <div class="checkout-shell">
+        <header>
+          <div>
+            <p>The Stronger After 40 Reset</p>
+            <h2 id="checkout-title">Secure checkout <span>$19</span></h2>
+          </div>
+          <button class="checkout-close" type="button" aria-label="Close checkout">×</button>
+        </header>
+        <div class="checkout-status" id="checkout-status" role="status">Preparing secure checkout…</div>
+        <div id="embedded-checkout"></div>
+        <div class="checkout-fallback" id="checkout-fallback" hidden>
+          <p>Checkout could not load here.</p>
+          <a href="https://buy.stripe.com/7sY7sN7TS2va6Qj2OVdZ604">Continue to secure checkout</a>
+        </div>
+      </div>
+    </dialog>
+    <script src="script.js?v=7"></script>
   </body>
 </html>

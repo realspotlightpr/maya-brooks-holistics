@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "maya-brooks-checkout",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-07",
+  "observability": {
+    "enabled": true
+  }
+}
