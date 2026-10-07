@@ -218,23 +218,26 @@
       <span><b>Simple 28-day plan</b><small>$19 · yours for life</small></span
       ><a class="checkout-link" href="#offer">Get my plan →</a>
     </div>
-    <dialog class="checkout-dialog" id="checkout-dialog" aria-labelledby="checkout-title">
-      <div class="checkout-shell">
+    <dialog class="lead-dialog" id="lead-dialog" aria-labelledby="lead-title">
+      <div class="lead-shell">
         <header>
           <div>
-            <p>The Stronger After 40 Reset</p>
-            <h2 id="checkout-title">Secure checkout <span>$19</span></h2>
+            <p>Your next step</p>
+            <h2 id="lead-title">Where should we send your plan?</h2>
           </div>
-          <button class="checkout-close" type="button" aria-label="Close checkout">×</button>
+          <button class="lead-close" type="button" aria-label="Close form">×</button>
         </header>
-        <div class="checkout-status" id="checkout-status" role="status">Preparing secure checkout…</div>
-        <div id="embedded-checkout"></div>
-        <div class="checkout-fallback" id="checkout-fallback" hidden>
-          <p>Checkout could not load here.</p>
-          <a href="https://buy.stripe.com/7sY7sN7TS2va6Qj2OVdZ604">Continue to secure checkout</a>
-        </div>
+        <p class="lead-intro">Tell us a little about you. Then you’ll see everything inside the reset and finish securely.</p>
+        <form class="lead-form" id="lead-form" novalidate>
+          <label>First name<input name="firstName" autocomplete="given-name" required /></label>
+          <label>Email address<input name="email" type="email" autocomplete="email" required /></label>
+          <label>Your biggest goal right now<textarea name="goal" rows="3" required placeholder="Example: feel stronger and have more energy"></textarea></label>
+          <p class="lead-error" id="lead-error" role="alert" hidden>Please check your name, email, and goal.</p>
+          <button class="button lead-submit" type="submit">Show me the plan <span>→</span></button>
+          <small>We’ll only send helpful plan updates. Unsubscribe any time.</small>
+        </form>
       </div>
     </dialog>
-    <script src="script.js?v=7"></script>
+    <script src="script.js?v=8"></script>
   </body>
 </html>

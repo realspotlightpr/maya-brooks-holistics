@@ -45,7 +45,7 @@ export default {
       return json({ error: "Checkout is not configured" }, 503, origin);
     }
 
-    const returnUrl = `${origin}/?checkout=return&session_id={CHECKOUT_SESSION_ID}`;
+    const returnUrl = `${origin}/maya-brooks-holistics/checkout.html?checkout=return&session_id={CHECKOUT_SESSION_ID}`;
     const form = new URLSearchParams({
       mode: "payment",
       ui_mode: "embedded",

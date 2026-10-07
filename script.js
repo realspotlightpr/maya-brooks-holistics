@@ -1,72 +1,66 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const CHECKOUT_URL = 'https://buy.stripe.com/7sY7sN7TS2va6Qj2OVdZ604';
-const CHECKOUT_API = 'https://maya-brooks-checkout.marquemedialtd.workers.dev/create-checkout-session';
-const STRIPE_PUBLISHABLE_KEY = 'pk_live_51RsTAUPZw1UaVJNEvHDyKdEzSsLEE4TijQoZkMK1G8YzyjqAZFv76C89iBKTn7vFYXBjzD50m7WRTr4HkIMRzdmj00Jy9oQhSp';
-const checkoutDialog = document.getElementById('checkout-dialog');
-const checkoutStatus = document.getElementById('checkout-status');
-const checkoutFallback = document.getElementById('checkout-fallback');
-let embeddedCheckout;
-let checkoutLoading = false;
+const LEAD_ENDPOINT = 'https://docs.google.com/forms/d/e/1FAIpQLSdgw2I84Jf9KI2oSHvNcEKnSr4JYQXYg5jDxCvrJFYu8XBrTA/formResponse';
+const LEAD_FIELDS = {
+  firstName: 'entry.389109833',
+  email: 'entry.123344667',
+  goal: 'entry.970079197',
+};
+const leadDialog = document.getElementById('lead-dialog');
+const leadForm = document.getElementById('lead-form');
+const leadError = document.getElementById('lead-error');
 
-function openCheckoutDialog() {
-  if (!checkoutDialog) return;
-  if (typeof checkoutDialog.showModal === 'function') checkoutDialog.showModal();
-  else checkoutDialog.setAttribute('open', '');
+function openLeadDialog() {
+  if (!leadDialog) return;
+  if (typeof leadDialog.showModal === 'function') leadDialog.showModal();
+  else leadDialog.setAttribute('open', '');
   document.body.style.overflow = 'hidden';
+  window.setTimeout(() => leadForm?.elements.firstName?.focus(), 120);
 }
 
-function closeCheckoutDialog() {
-  if (!checkoutDialog) return;
-  if (typeof checkoutDialog.close === 'function') checkoutDialog.close();
-  else checkoutDialog.removeAttribute('open');
+function closeLeadDialog() {
+  if (!leadDialog) return;
+  if (typeof leadDialog.close === 'function') leadDialog.close();
+  else leadDialog.removeAttribute('open');
   document.body.style.overflow = '';
 }
 
-async function startEmbeddedCheckout() {
-  if (embeddedCheckout || checkoutLoading) return;
-  checkoutLoading = true;
-  checkoutStatus.textContent = 'Preparing secure checkout…';
-  checkoutFallback.hidden = true;
-
-  try {
-    if (!window.Stripe) throw new Error('Stripe.js unavailable');
-    const stripe = window.Stripe(STRIPE_PUBLISHABLE_KEY);
-    embeddedCheckout = await stripe.initEmbeddedCheckout({
-      fetchClientSecret: async () => {
-        const response = await fetch(CHECKOUT_API, { method: 'POST' });
-        const data = await response.json();
-        if (!response.ok || !data.clientSecret) throw new Error(data.error || 'Checkout unavailable');
-        return data.clientSecret;
-      },
-      onComplete: () => {
-        checkoutStatus.textContent = 'Payment complete. A Stripe receipt is on its way to your email.';
-        document.getElementById('embedded-checkout').hidden = true;
-      },
-    });
-    checkoutStatus.textContent = '';
-    embeddedCheckout.mount('#embedded-checkout');
-  } catch (error) {
-    console.error('Embedded checkout failed', error);
-    checkoutStatus.textContent = '';
-    checkoutFallback.hidden = false;
-  } finally {
-    checkoutLoading = false;
-  }
-}
-
 document.querySelectorAll('.checkout-link').forEach(link => {
-  link.href = CHECKOUT_URL;
+  link.href = '#get-started';
   link.addEventListener('click', event => {
     event.preventDefault();
-    openCheckoutDialog();
-    startEmbeddedCheckout();
+    openLeadDialog();
   });
 });
 
-checkoutDialog?.querySelector('.checkout-close')?.addEventListener('click', closeCheckoutDialog);
-checkoutDialog?.addEventListener('click', event => {
-  if (event.target === checkoutDialog) closeCheckoutDialog();
+leadDialog?.querySelector('.lead-close')?.addEventListener('click', closeLeadDialog);
+leadDialog?.addEventListener('click', event => {
+  if (event.target === leadDialog) closeLeadDialog();
+});
+
+leadForm?.addEventListener('submit', async event => {
+  event.preventDefault();
+  leadError.hidden = true;
+  if (!leadForm.checkValidity()) {
+    leadError.hidden = false;
+    leadForm.reportValidity();
+    return;
+  }
+
+  const submit = leadForm.querySelector('button[type="submit"]');
+  const data = new FormData();
+  Object.entries(LEAD_FIELDS).forEach(([name, entry]) => data.append(entry, leadForm.elements[name].value.trim()));
+  submit.disabled = true;
+  submit.firstChild.textContent = 'Saving your spot ';
+
+  try {
+    await fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', body: data });
+  } catch (error) {
+    console.warn('Lead submission could not be confirmed', error);
+  } finally {
+    sessionStorage.setItem('mayaLeadName', leadForm.elements.firstName.value.trim());
+    window.location.href = 'checkout.html';
+  }
 });
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
