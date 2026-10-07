@@ -3,7 +3,10 @@ const CHECKOUT_API = 'https://maya-brooks-checkout.marquemedialtd.workers.dev/cr
 const STRIPE_PUBLISHABLE_KEY = 'pk_live_51RsTAUPZw1UaVJNEvHDyKdEzSsLEE4TijQoZkMK1G8YzyjqAZFv76C89iBKTn7vFYXBjzD50m7WRTr4HkIMRzdmj00Jy9oQhSp';
 document.getElementById('year').textContent = new Date().getFullYear();
 const savedName = sessionStorage.getItem('mayaLeadName');
-if (savedName) document.getElementById('lead-greeting').textContent = `${savedName}, you’re one step away.`;
+if (savedName) {
+  document.getElementById('lead-greeting').textContent = `${savedName}, you’re one step away.`;
+  document.getElementById('mobile-lead-greeting').textContent = `${savedName}, you’re one step away.`;
+}
 const status = document.getElementById('checkout-status');
 const fallback = document.getElementById('checkout-fallback');
 async function mountCheckout() {
