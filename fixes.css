@@ -14,3 +14,70 @@ footer img {
     max-height: 64px;
   }
 }
+
+.simple-steps {
+  display: grid;
+  gap: 14px;
+}
+
+.simple-steps article {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.simple-steps article:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.simple-steps article > span {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--white);
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  font-weight: 700;
+}
+
+.simple-steps h3,
+.simple-steps p {
+  margin: 0;
+}
+
+.simple-steps h3 {
+  font-size: 1.8rem;
+}
+
+.simple-steps p {
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .simple-steps {
+    margin-top: 30px;
+  }
+
+  .simple-steps article {
+    grid-template-columns: 48px 1fr;
+    gap: 15px;
+    padding: 20px 0;
+  }
+
+  .simple-steps article > span {
+    width: 46px;
+    height: 46px;
+    font-size: 1.3rem;
+  }
+
+  .simple-steps h3 {
+    font-size: 1.5rem;
+  }
+}
