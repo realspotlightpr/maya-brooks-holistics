@@ -8,6 +8,38 @@ footer img {
 }
 
 @media (max-width: 900px) {
+  .mobile-page .nav {
+    gap: 12px;
+  }
+
+  .mobile-page .brand {
+    min-width: 0;
+    flex: 0 1 146px;
+  }
+
+  .mobile-page .brand img {
+    width: 100%;
+  }
+
+  .mobile-page .nav-buy {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .mobile-page .hero-copy h1 {
+    font-size: clamp(2.75rem, 11.5vw, 3.35rem);
+    line-height: 1.01;
+  }
+
+  .mobile-page .intro h2,
+  .mobile-page .section-heading h2,
+  .mobile-page .guide-copy h2,
+  .mobile-page .fit-copy h2,
+  .mobile-page .offer h2,
+  .mobile-page .faq h2 {
+    font-size: clamp(2.25rem, 9.5vw, 2.85rem);
+  }
+
   footer img {
     width: 165px;
     height: auto;
